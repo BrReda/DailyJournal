@@ -9,7 +9,7 @@ COPY build.gradle settings.gradle gradlew* ./
 COPY gradle ./gradle
 
 # Download Gradle dependencies
-RUN ./gradlew build --no-daemon || return 0
+RUN chmod +x ./gradlew
 
 # Copy the rest of the source code
 COPY src ./src

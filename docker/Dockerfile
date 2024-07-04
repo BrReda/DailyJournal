@@ -9,13 +9,13 @@ COPY build.gradle settings.gradle gradlew* ./
 COPY gradle ./gradle
 
 # Download Gradle dependencies
-RUN chmod +x ./gradlew
+RUN ./gradlew build --no-daemon || return 0
 
 # Copy the rest of the source code
 COPY src ./src
 
 # Build the application
-RUN ./gradlew build --no-daemon
+RUN chmod +x ./gradlew
 
 # Stage 2: Create a lightweight image for running the application
 FROM eclipse-temurin:17-jre-alpine

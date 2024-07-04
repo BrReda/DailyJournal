@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Journal Entries</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100">
+<div class="container mx-auto px-4 py-8 lg:px-32">
+    <h2 class="text-3xl font-semibold mb-6 text-center">Journal Entries</h2>
+    <div class="flex justify-end mb-4">
+        <a href="/new" class="text-blue-500">Create New Entry</a>
+    </div>
+    <div th:each="entry : ${entries}" class="bg-white p-6 rounded-lg shadow-lg mb-6">
+        <h3 class="text-2xl font-bold mb-2" th:text="${entry.title}"></h3>
+        <p class="text-gray-600 mb-2 created-at" th:text="${entry.createdAt}"></p>
+        <p class="mb-4" th:text="${entry.content}"></p>
+        <p class="mb-4">Tags:
+            <span th:each="tag : ${entry.tags}" th:text="${tag} + ' '" class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2"></span>
+        </p>
+        <div class="flex space-x-4">
+            <a th:href="@{/edit/{id}(id=${entry.id})}" class="text-blue-500">Edit</a>
+            <a th:href="@{/delete/{id}(id=${entry.id})}" class="text-red-500">Delete</a>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const formatDate = (dateStr) => {
+            const date = new Date(dateStr);
+            const options = {
+                year: 'numeric',
+                month: '2-digit',
+                day: '2-digit',
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit',
+                hour12: false
+            };
+            return date.toLocaleString('sv-SE', options).replace('T', ' ');
+        };
+
+        document.querySelectorAll('.created-at').forEach((element) => {
+            const originalDate = element.textContent;
+            element.textContent = formatDate(originalDate);
+        });
+    });
+</script>
+
+</body>
+</html>

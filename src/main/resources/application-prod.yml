@@ -1,0 +1,8 @@
+
+
+DATABASE_HOST: dpg-cq3g1vjqf0us73dheep0-a.frankfurt-postgres.render.com
+DATABASE_PORT: 5432
+DATABASE_NAME: dailyjournal
+DATABASE_USERNAME: dailyjournal
+DATABASE_PASSWORD: Uu5s5PamwzAYYEnlIRXPxn3DjPJUjA51
+JPA_HIBERNATE_DDL: update

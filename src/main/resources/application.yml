@@ -1,0 +1,44 @@
+
+server:
+  port: 8099
+
+spring:
+  profiles:
+    active: prod
+  application:
+    name: DailyJournal
+  thymeleaf:
+    prefix: classpath:/templates/
+    suffix: .html
+    mode: HTML5
+    cache: false
+  datasource:
+    url: jdbc:postgresql://${DATABASE_HOST:127.0.0.1}:${DATABASE_PORT:5432}/${DATABASE_NAME:dailyJournal}
+    username: ${DATABASE_USERNAME:postgres}
+    password: ${DATABASE_PASSWORD:admin}
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      # Test query to validate if the connection is still alive
+      connection-test-query: select 1
+      # Connection timeout in milliseconds; time to wait for a connection before timing out (30 seconds)
+      connection-timeout: 30000
+      # Maximum number of connections in the pool (200 connections for 20 microservices)
+      maximum-pool-size: 200
+      # Minimum number of idle connections maintained by the pool
+      minimum-idle: 20
+      # Idle timeout in milliseconds; time for a connection to be released if idle (5 minutes)
+      idle-timeout: 300000
+      # Leak detection threshold in milliseconds; time to consider a connection as potentially leaked (1 minute)
+      leak-detection-threshold: 60000
+  jpa:
+    show-sql: false
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: ${JPA_HIBERNATE_DDL:update}
+    properties:
+      hibernate:
+        order_inserts: true
+        jdbc.time_zone: UTC
+        types.print.banner: false
+
+

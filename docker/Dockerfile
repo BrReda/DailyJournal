@@ -8,6 +8,9 @@ WORKDIR /home/gradle/project
 COPY build.gradle settings.gradle gradlew* ./
 COPY gradle ./gradle
 
+# Grant execute permission to gradlew script
+RUN chmod +x ./gradlew
+
 # Download Gradle dependencies
 RUN ./gradlew build --no-daemon || return 0
 
@@ -15,7 +18,7 @@ RUN ./gradlew build --no-daemon || return 0
 COPY src ./src
 
 # Build the application
-RUN chmod +x ./gradlew
+RUN ./gradlew build --no-daemon
 
 # Stage 2: Create a lightweight image for running the application
 FROM eclipse-temurin:17-jre-alpine
